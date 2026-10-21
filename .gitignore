@@ -1,0 +1,10 @@
+# Fichiers privés Laravel
+/backend/laravel/.env
+/backend/laravel/.env.*
+!/backend/laravel/.env.example
+
+# Dépendances et fichiers générés
+/backend/laravel/vendor/
+/backend/laravel/node_modules/
+/backend/laravel/storage/
+/backend/laravel/bootstrap/cache/

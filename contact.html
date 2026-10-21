@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | AK Dev</title>
+    <meta name="description" content="Contactez la développeuse full stack web et mobile AK Dev" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-glow"></div>
+
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="accueil.html" class="brand">
+          <span class="brand-mark">AK</span>
+          <span>AK Dev</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Menu principal">
+          <a href="accueil.html">Accueil</a>
+          <a href="apropos.html">À propos</a>
+          <a href="competences.html">Compétences</a>
+          <a href="projets.html">Projets</a>
+          <a href="contact.html" class="active">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container contact-wrap">
+          <div class="contact-copy">
+            <span class="section-tag">Contact</span>
+            <h2>Travaillons ensemble sur votre prochain projet digital.</h2>
+            <p>
+              Vous avez un projet web à lancer, une application à moderniser ou une idée à développer ?
+              Je peux vous accompagner de la conception au déploiement, avec une vraie vision produit.
+            </p>
+            <div class="contact-links">
+              <a href="mailto:aichakebe667@gmail.com">hello@akdev.sn</a>
+              <a href="tel:+2217854418">+221 78 544 18 18</a>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <label>
+              <span>Nom</span>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" id="email" name="email" placeholder="Votre email" required />
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea id="message" name="message" rows="5" placeholder="Décrivez votre projet..." required></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <p id="formStatus" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <p>© 2025 AK Dev</p>
+        <div class="socials">
+          <a href="#">GitHub</a>
+          
+        </div>
+      </div>
+    </footer>
+<script>
+  const form = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const API_URL = 'http://127.0.0.1:8000/api/messages';
+
+  function setFormStatus(message, isError = false) {
+    formStatus.textContent = message;
+    formStatus.style.color = isError ? '#ff8a8a' : '#7ef9c6';
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const donnees = {
+      nom: document.getElementById('nom').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      message: document.getElementById('message').value.trim(),
+    };
+
+    if (!donnees.nom || !donnees.email || !donnees.message) {
+      setFormStatus('Veuillez remplir tous les champs obligatoires.', true);
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Envoi...';
+    setFormStatus('');
+
+    try {
+      const reponse = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(donnees),
+      });
+
+      const resultat = await reponse.json().catch(() => ({}));
+
+      if (reponse.ok) {
+        setFormStatus(resultat.message || 'Votre message a été envoyé avec succès.');
+        form.reset();
+      } else {
+        const erreurs = resultat.errors
+          ? Object.values(resultat.errors).flat().join(' ')
+          : (resultat.message || 'Erreur lors de l\'envoi du message.');
+        setFormStatus(erreurs, true);
+      }
+    } catch (erreur) {
+      setFormStatus('Impossible de contacter le serveur Laravel. Vérifiez que le backend tourne sur http://127.0.0.1:8000.', true);
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Envoyer';
+    }
+  });
+</script>
+    
+        
+  </body>
+</html>
