@@ -54,22 +54,18 @@
             </div>
           </div>
 
-          <form class="contact-form" id="contactForm">
-            <label>
-              <span>Nom</span>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
-            </label>
-            <label>
-              <span>Email</span>
-              <input type="email" id="email" name="email" placeholder="Votre email" required />
-            </label>
-            <label>
-              <span>Message</span>
-              <textarea id="message" name="message" rows="5" placeholder="Décrivez votre projet..." required></textarea>
-            </label>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-            <p id="formStatus" aria-live="polite"></p>
-          </form>
+          <div class="contact-action">
+            <!-- Remplacez 221785441818 par votre vrai numéro WhatsApp au format international, sans +, espaces ni tirets. -->
+            <a
+              class="btn btn-primary whatsapp-button"
+              href="https://wa.me/221785441818?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio."
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Me contacter sur WhatsApp"
+            >
+              Me contacter sur WhatsApp
+            </a>
+          </div>
         </div>
       </section>
     </main>
@@ -84,65 +80,6 @@
         </div>
       </div>
     </footer>
-<script>
-  const form = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
-  const submitButton = form.querySelector('button[type="submit"]');
-  const API_URL = 'http://127.0.0.1:8000/api/messages';
-
-  function setFormStatus(message, isError = false) {
-    formStatus.textContent = message;
-    formStatus.style.color = isError ? '#ff8a8a' : '#7ef9c6';
-  }
-
-  form.addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    const donnees = {
-      nom: document.getElementById('nom').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      message: document.getElementById('message').value.trim(),
-    };
-
-    if (!donnees.nom || !donnees.email || !donnees.message) {
-      setFormStatus('Veuillez remplir tous les champs obligatoires.', true);
-      return;
-    }
-
-    submitButton.disabled = true;
-    submitButton.textContent = 'Envoi...';
-    setFormStatus('');
-
-    try {
-      const reponse = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(donnees),
-      });
-
-      const resultat = await reponse.json().catch(() => ({}));
-
-      if (reponse.ok) {
-        setFormStatus(resultat.message || 'Votre message a été envoyé avec succès.');
-        form.reset();
-      } else {
-        const erreurs = resultat.errors
-          ? Object.values(resultat.errors).flat().join(' ')
-          : (resultat.message || 'Erreur lors de l\'envoi du message.');
-        setFormStatus(erreurs, true);
-      }
-    } catch (erreur) {
-      setFormStatus('Impossible de contacter le serveur Laravel. Vérifiez que le backend tourne sur http://127.0.0.1:8000.', true);
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = 'Envoyer';
-    }
-  });
-</script>
-
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const nav = document.querySelector('.main-nav');
