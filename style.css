@@ -784,6 +784,30 @@ textarea {
     linear-gradient(90deg, rgba(184, 133, 255, 0.18) 0 28%, rgba(255, 255, 255, 0.05) 28% 56%, rgba(124, 236, 255, 0.15) 56% 100%);
 }
 
+.visual-six {
+  background:
+    linear-gradient(135deg, rgba(94, 231, 255, 0.25), rgba(34, 135, 115, 0.24)),
+    linear-gradient(180deg, #12242e, #0d1d22);
+}
+
+.visual-six::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01)),
+    linear-gradient(90deg, rgba(124, 236, 255, 0.18) 0 24%, rgba(255, 255, 255, 0.05) 24% 60%, rgba(94, 231, 255, 0.12) 60% 100%);
+}
+
+.visual-seven {
+  background:
+    linear-gradient(135deg, rgba(255, 124, 199, 0.22), rgba(184, 133, 255, 0.28)),
+    linear-gradient(180deg, #23182d, #141d2f);
+}
+
+.visual-seven::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01)),
+    linear-gradient(90deg, rgba(255, 124, 199, 0.18) 0 22%, rgba(255, 255, 255, 0.05) 22% 58%, rgba(184, 133, 255, 0.12) 58% 100%);
+}
+
 .project-content {
   padding: 22px 20px 24px;
 }
@@ -795,6 +819,55 @@ textarea {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.72rem;
+}
+
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-group {
+  background: rgba(124, 236, 255, 0.12);
+  border: 1px solid rgba(124, 236, 255, 0.28);
+  color: var(--cyan-2);
+}
+
+.project-personal {
+  background: rgba(255, 124, 199, 0.12);
+  border: 1px solid rgba(255, 124, 199, 0.28);
+  color: var(--pink-soft);
+}
+
+.project-contribution {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.project-contribution strong {
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-contribution span {
+  display: block;
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .project-content h3 {
